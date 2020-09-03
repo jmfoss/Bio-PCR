@@ -2,3 +2,4 @@ This is a python program that will simulate PCR (Polymerase  Chain  Reaction) on
 Data source: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2?report=fasta
 Gene Descriptions: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
 BLAST: http://www.ncbi.nlm.nih.gov/BLAST/
+PCR Description: https://users.ugent.be/~avierstr/principles/pcr.html
