@@ -5,6 +5,6 @@ This is a python program that will simulate PCR (Polymerase  Chain  Reaction) on
 https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2?report=fasta
 
 ## Helpful links
-Gene Descriptions: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
-BLAST: http://www.ncbi.nlm.nih.gov/BLAST/
-PCR Description: https://users.ugent.be/~avierstr/principles/pcr.html
+* Gene Descriptions: https://www.ncbi.nlm.nih.gov/nuccore/NC_045512
+* BLAST: http://www.ncbi.nlm.nih.gov/BLAST/
+* PCR Description: https://users.ugent.be/~avierstr/principles/pcr.html
