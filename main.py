@@ -2,21 +2,6 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-def get_primers(dna):
-    # Needs finished
-    return 0
-
-def get_gene(begin, end):
-    sequence = open("sequence.fasta", "r").read()
-    sequence = sequence.replace("\n", "")
-    return sequence[begin - 1: end]
-
-def pcr(dna, fall_off_rate, num_cycles):
-    primers = get_primers(dna)
-
-    return 0
-
 def main():
     nsp2_gene = get_gene(2720, 8554)
     c_dna = get_reverse_complement(nsp2_gene)
@@ -26,10 +11,15 @@ def main():
     results = pcr(dna, 50, 20)
     display_results(results)
 
-def display_results(results):
-    # Needs finished
-    return 0
+# param: start and end index of dna segment
+# return: string of dna segment 5" to 3"
+def get_gene(begin, end):
+    sequence = open("sequence.fasta", "r").read()
+    sequence = sequence.replace("\n", "")
+    return sequence[begin - 1: end]
 
+# param: a single strand 5" to 3" dna
+# return: a single strand 5" to 3" dna that is reverse complement to the input strand
 def get_reverse_complement(dna):
     dna = dna.replace("A", "X")
     dna = dna.replace("T", "A")
@@ -39,9 +29,38 @@ def get_reverse_complement(dna):
     dna = dna.replace("X", "C")
     return dna[::-1]
 
+# param: gene to be copied (a tuple of 2 strs), fall of rate of DNA polymerase (int), and num_cycles to run PCR (int)
+# return: a list of double stranded dna segments
+def pcr(dna, fall_off_rate, num_cycles):
+    primers = get_primers(dna)
+    # Needs finished
+    return 0
 
-# Press the green button in the gutter to run the script.
+# param: a double strand dna, a tuple of 2 strings, representing 2 segments of dna from 5" to 3"
+# return: a tuple of 2 strs representing the pair of primers (5" -> 3", GC content > 40%, bases btw the 2 primers: ~200)
+def get_primers(dna):
+    # Needs finished
+    return 0
+
+# param: a list of tuples of 2 strs, representing double stranded dna segments
+# return: a list of single strand dna segments
+def denaturation(dna_segments):
+    # Needs finished
+    return 0
+
+# param: a list of single strand dna segments, each segment is from 5" to 3"
+# return: a list of tuples of 2 strs (2 dna segments from 5" to 3")
+def annealing_elongation(singleStrandDNAs, primers, fall_of_rate):
+    # Needs finished
+    return 0
+
+# param: a list of double stranded dna segments
+# displays: stats of results
+def display_results(results):
+    # Needs finished
+    return 0
+
+# Causes the program to run main when script is ran
 if __name__ == '__main__':
     main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
