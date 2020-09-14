@@ -1,11 +1,3 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-test = "1234554321"
-r = [(test[i], test[i]) for i in range(len(test)) if test[i] == '5']
-
-
 def main():
     nsp2_gene = get_gene(2720, 8554)
     dna = (nsp2_gene, get_reverse_complement(nsp2_gene))
