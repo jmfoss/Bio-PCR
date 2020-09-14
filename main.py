@@ -2,12 +2,13 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+test = "1234554321"
+r = [(test[i], test[i]) for i in range(len(test)) if test[i] == '5']
+
+
 def main():
     nsp2_gene = get_gene(2720, 8554)
-    c_dna = get_reverse_complement(nsp2_gene)
-    rcc_dna = nsp2_gene
-    dna = (c_dna, rcc_dna)
-
+    dna = (nsp2_gene, get_reverse_complement(nsp2_gene))
     results = pcr(dna, 50, 20)
     display_results(results)
 
@@ -37,20 +38,21 @@ def get_reverse_complement(dna):
 # return: a list of double stranded dna segments
 def pcr(dna, fall_off_rate, num_cycles):
     primers = get_primers(dna)
+    print(primers)
     # Needs finished
     return 0
 
 
 # param: a double strand dna, a tuple of 2 strings, representing 2 segments of dna from 5" to 3"
-# return: a tuple of 2 strings representing the pair of primers
+# return: a tuple of 2 strings representing the pair of primers (Forward, Reverse).
 # (5" -> 3", GC content > 40%, bases btw the 2 primers: ~200)
 def get_primers(dna):
     # Finds first pair of two primers, forward and reverse (both 5' to 3'), 200 bases apart
-    # each of size of 20 bases
-    return [(dna[0][start: end], dna[1][::-1][end + 200: end + 220][::-1])
-            for start, end in zip(range(len(dna[0])), range(19, len(dna[0]) - 220))
-            if len(dna[0][start: end].replace('AT', '')) +
-            len(dna[1][::-1][end + 200: end + 220].replace('AT', '')) > 16][0]
+    # each of size of 20 bases, with GC content > 40%
+    return [(dna[0][iterator: iterator + 20], dna[1][::-1][iterator + 220: iterator + 240][::-1])
+            for iterator in range(len(dna[0]) - 240)
+            if len(dna[0][iterator: iterator + 20].replace('A', '').replace('T', '')) > 8 and
+            len(dna[1][::-1][iterator + 220: iterator + 240].replace('A', '').replace('T', '')) > 8][0]
 
 
 # param: a list of tuples of 2 strings, representing double stranded dna segments
