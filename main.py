@@ -1,12 +1,14 @@
 def main():
-    nsp2_gene = get_gene(2720, 8554)  # RNA 3'-5'
-    dna = (nsp2_gene, get_reverse_complement(nsp2_gene))  # dna both 5'-3' dna[0]: postive, dna[1]: negative
+    nsp2_gene = get_gene(2720, 8554)
+
+    # 5'-3' [positive, negative]
+    dna = (nsp2_gene, get_reverse_complement(nsp2_gene))
     results = pcr(dna, 50, 20)
     display_results(results)
 
 
 # param: start and end index of dna segment
-# return: string of dna segment 3' to 5'
+# return: string of dna segment
 def get_gene(begin, end):
     sequence = open("sequence.fasta", "r").read()
     sequence = sequence.replace("\n", "")
@@ -36,8 +38,8 @@ def pcr(dna, fall_off_rate, num_cycles):
 
 
 # param: a double strand dna, a tuple of 2 strings, representing 2 segments of dna from 5" to 3"
-# return: a tuple of 2 strings representing the pair of primers (Forward, Reverse).
-# (5" -> 3", GC content > 40%, bases btw the 2 primers: ~200)
+# return: a tuple of 2 strings representing the pair of primers [Forward, Reverse].
+# (5" -> 3", GC content > 40%, bases btw the 2 primers: ~200, and GC clamp < 3)
 def get_primers(dna):
     forward = [dna[0][iterator: iterator + 20] for iterator in range(len(dna[0]) - 20)
                if check_gc_content(dna[0][iterator: iterator + 20], 8) and
