@@ -92,8 +92,6 @@ def denaturation(dna_segments):
 # return: a list of 2 tuples of 2 strings (2 dna segments from 5" to 3")
 def annealing_elongation(strands, primers, fall_of_rate):
     results = list()
-    neg = ""
-    pos = ""
     # Finds new -/Template strand
     if annealing(strands[0], primers[1]):
         index = strands[1].index(primers[1])
