@@ -1,3 +1,6 @@
+import random
+
+
 def main():
     nsp2_gene = get_gene(2720, 8554)
 
@@ -7,8 +10,13 @@ def main():
     display_results(results)
 
 
+# Returns a random number between around 200
+def get_fall_off(e):
+    return 200 + random.randint(-e, e)
+
+
 # param: start and end index of dna segment
-# return: string of dna segment
+# return: string of rna segment 3'-5'
 def get_gene(begin, end):
     sequence = open("sequence.fasta", "r").read()
     sequence = sequence.replace("\n", "")
@@ -81,10 +89,40 @@ def denaturation(dna_segments):
 
 
 # param: a list of single strand dna segments, each segment is from 5" to 3"
-# return: a list of tuples of 2 strings (2 dna segments from 5" to 3")
-def annealing_elongation(single_strand_dna, primers, fall_of_rate):
-    # Needs finished
-    return 0
+# return: a list of 2 tuples of 2 strings (2 dna segments from 5" to 3")
+def annealing_elongation(strands, primers, fall_of_rate):
+    results = list()
+    neg = ""
+    pos = ""
+    # Finds new -/Template strand
+    if annealing(strands[0], primers[1]):
+        index = strands[1].index(primers[1])
+        neg = elongation(strands[1], index, get_fall_off(fall_of_rate))
+        results.append((strands[0], neg))
+    else:
+        print("failure to bind")
+
+    # Finds new +/Coding strand
+    if annealing(strands[1], primers[0]):
+        index = strands[0].index(primers[0])
+        pos = elongation(strands[0], index, get_fall_off(fall_of_rate))
+        results.append((pos, strands[1]))
+    else:
+        print("failure to bind")
+    return results
+
+
+# Helper function for annealing_elongation
+# Checks if the given strand of dna and primer bind to each other.
+# Returns true or false
+def annealing(single_strand_dna, primer):
+    return single_strand_dna.count(get_reverse_complement(primer)) == 1
+
+
+# Helper function for annealing_elongation
+# Returns elongated strand based on given strand, primer_index, and fall_off
+def elongation(single_strand_dna, primer_index, fall_off):
+    return single_strand_dna[primer_index: primer_index + fall_off + 20]
 
 
 # param: a list of double stranded dna segments
