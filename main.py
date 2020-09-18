@@ -89,7 +89,8 @@ def denaturation(dna_segments):
 
 
 # param: a list of single strand dna segments, each segment is from 5" to 3"
-# return: a list of 2 tuples of 2 strings (2 dna segments from 5" to 3")
+# return: a list of tuples of 2 strings (2 dna segments from 5" to 3")
+# length of list is depended on successful bindings. Maximum size of 2 tuples
 def annealing_elongation(strands, primers, fall_of_rate):
     results = list()
     # Finds new -/Template strand
