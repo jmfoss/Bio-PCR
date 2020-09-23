@@ -39,10 +39,26 @@ def get_reverse_complement(dna):
 # and num_cycles to run PCR (int)
 # return: a list of double stranded dna segments
 def pcr(dna, fall_off_rate, num_cycles):
+    # get primers
     primers = get_primers(dna)
     print(primers)
-    # Needs finished
-    return 0
+    #dna_strands=denaturation(dna)
+    #dna_double_strands=annealing_elongation(dna_strands, primers, fall_off_rate)
+    # put dna tuple into a list
+    dna_double_strands = [dna]
+    # run a loop for the cycles
+    i = 0
+    while i < num_cycles:
+        i += 1
+        temp_dna = []
+        #loop through all the dna
+        for x in dna_double_strands:
+            #extend the dna i
+            temp_dna.extend(annealing_elongation(denaturation([x]), primers, fall_off_rate))
+        #put the dna Back in the list
+        dna_double_strands = temp_dna
+
+    return dna_double_strands
 
 
 # param: a double strand dna, a tuple of 2 strings, representing 2 segments of dna from 5" to 3"
@@ -84,8 +100,9 @@ def check_gc_content(primer, content):
 # param: a list of tuples of 2 strings, representing double stranded dna segments
 # return: a list of single strand dna segments
 def denaturation(dna_segments):
-    # Needs finished
-    return 0
+    #use list comprehension to create a list with an element for each strand in the tuples of dna_segments
+    dna_list = [strand for double_strand in dna_segments for strand in double_strand]
+    return dna_list
 
 
 # param: a list of single strand dna segments, each segment is from 5" to 3"
