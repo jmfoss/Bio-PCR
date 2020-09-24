@@ -41,9 +41,8 @@ def get_reverse_complement(dna):
 def pcr(dna, fall_off_rate, num_cycles):
     # get primers
     primers = get_primers(dna)
-    print(primers)
-    #dna_strands=denaturation(dna)
-    #dna_double_strands=annealing_elongation(dna_strands, primers, fall_off_rate)
+    # dna_strands=denaturation(dna)
+    # dna_double_strands=annealing_elongation(dna_strands, primers, fall_off_rate)
     # put dna tuple into a list
     dna_double_strands = [dna]
     # run a loop for the cycles
@@ -51,11 +50,11 @@ def pcr(dna, fall_off_rate, num_cycles):
     while i < num_cycles:
         i += 1
         temp_dna = []
-        #loop through all the dna
+        # loop through all the dna
         for x in dna_double_strands:
-            #extend the dna i
+            # extend the dna i
             temp_dna.extend(annealing_elongation(denaturation([x]), primers, fall_off_rate))
-        #put the dna Back in the list
+        # put the dna Back in the list
         dna_double_strands = temp_dna
 
     return dna_double_strands
@@ -100,7 +99,7 @@ def check_gc_content(primer, content):
 # param: a list of tuples of 2 strings, representing double stranded dna segments
 # return: a list of single strand dna segments
 def denaturation(dna_segments):
-    #use list comprehension to create a list with an element for each strand in the tuples of dna_segments
+    # use list comprehension to create a list with an element for each strand in the tuples of dna_segments
     dna_list = [strand for double_strand in dna_segments for strand in double_strand]
     return dna_list
 
@@ -115,16 +114,13 @@ def annealing_elongation(strands, primers, fall_of_rate):
         index = strands[1].index(primers[1])
         neg = elongation(strands[1], index, get_fall_off(fall_of_rate))
         results.append((strands[0], neg))
-    else:
-        print("failure to bind")
 
     # Finds new +/Coding strand
     if annealing(strands[1], primers[0]):
         index = strands[0].index(primers[0])
         pos = elongation(strands[0], index, get_fall_off(fall_of_rate))
         results.append((pos, strands[1]))
-    else:
-        print("failure to bind")
+
     return results
 
 
