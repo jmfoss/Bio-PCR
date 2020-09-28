@@ -1,5 +1,5 @@
 import random
-
+import matplotlib.pyplot as plt
 
 def main():
     nsp2_gene = get_gene(2720, 8554)
@@ -140,8 +140,53 @@ def elongation(single_strand_dna, primer_index, fall_off):
 # param: a list of double stranded dna segments
 # displays: stats of results
 def display_results(results):
-    # Needs finished
+    # Prints several statistics
+    single_strand = [i[1 if len(i[0]) > len(i[1]) else 0] for i in results]
+    print("Number of strands: ")
+    print(len(single_strand))
+    print("Shortest strand length: ")
+    print(len(min(single_strand, key=len)))
+    print("Longest strand length: ")
+    print(len(max(single_strand, key=len)))
+    print("Average strand length: ")
+    print(round(average(single_strand)))
+
+    # Breaks strands to individual codons and then gets the average GC codon count.
+    codons = [i for ele in single_strand for i in ele]
+    codon_freq = gc(codons)
+    print("Count: \n" + str(codon_freq))
+    gc_content = ((codon_freq["G"] + codon_freq["C"]) / (codon_freq["A"] + codon_freq["G"] + codon_freq["C"] + codon_freq["T"]))
+    print("Average GC Count: \n" + str(round(gc_content, 3)) + "/1 of total codons")
+
+    # Graphs DNA segments and their lengths
+    single_strand_lengths=[len(i) for i in single_strand]
+    plt.style.use('ggplot')
+    plt.bar(single_strand, single_strand_lengths, color='green')
+    plt.xlabel("DNA Strands")
+    plt.ylabel("Strand Length")
+    plt.title("NSP2 COVID19")
+    plt.ylim([165, 220])
+    plt.show()
+
     return 0
+
+# param: a list of single strands
+# returns: an average of single strand lengths
+def average(list):
+    lengths = [len(i) for i in list]
+    return 0 if len(lengths) == 0 else (float(sum(lengths)) / len(lengths))
+
+
+# param: a list of single strands
+# returns: a list of individual codons
+def gc(list):
+    all_freq = {}
+    for char in list:
+        if char in all_freq:
+            all_freq[char] +=1
+        else:
+            all_freq[char] = 1
+    return all_freq
 
 
 # Causes the program to run main when script is ran
